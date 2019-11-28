@@ -5,7 +5,7 @@ import node
 def basicOperation():
     # 创建一个包含5节点的单向链表
     thisLink = node.LinkNode()
-    for s in "world":
+    for s in "wor":
         thisLink.addNode(node.Node(s))
     print(thisLink)
 
@@ -24,6 +24,29 @@ def basicOperation():
     # 删除节点
     # thisLink.deleteNode("w")
     # print(thisLink)
+    return thisLink
+
+
+def reverseLink(linkNode):
+    # 单链表反转
+    # 使用三个指针 prev, cur, after
+    prev = linkNode.head
+    # 首先排除空链或单节点链
+    if prev == None or prev.next == None:
+        return linkNode
+    else:
+        cur = prev.next
+        while cur:
+            after = cur.next
+            cur.next = prev
+            prev = cur
+            cur = after
+        linkNode.head.next = None
+        linkNode.head = prev
+
 
 if __name__ == "__main__":
-    basicOperation()
+    link =  basicOperation()
+    reverseLink(link)
+    print(link)
+
