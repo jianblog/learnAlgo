@@ -150,29 +150,50 @@ def deleteLastN(nl, n):
             ptb.next = None
     return nl
 
+def findLinkMid(nl):
+    # 寻找链表中间节点
+    pta = nl.head
+    ptb = nl.head
+
+    while pta.next:
+        if pta.next.next:
+            pta = pta.next.next
+            ptb = ptb.next
+        else:
+            print(ptb.value, ptb.next.value)
+            return
+    print(ptb.value)
+
 
 
 if __name__ == "__main__":
+    # 链表翻转
     link =  basicOperation()
-    #reverseLink(link)
-    #print(link)
+    reverseLink(link)
+    print("翻转链表后: %s\n" % link)
 
 
     # 回环
-    #loopLink = createLoop()
-    #checkLoop(loopLink)
-
+    loopLink = createLoop()
+    checkLoop(loopLink)
+    print("\n")
 
     # 链表合并
-    print("链表合并")
+    print("链表合并:")
     la = newLink("ehr")
     lb = newLink("acnq")
 
     c = mergeLink(la, lb)
-    print(c)
-    print("\n")
+    print("%s\n" % c)
 
+    # 删除倒数第n节点
     n = 5
     print("删除倒数第%d个" % n)
     d = newLink("world")
-    print(deleteLastN(d, n))
+    print(deleteLastN(d, n), "\n")
+
+
+    # 寻找链表中间节点
+    e = newLink("worldn")
+    print("链表中间节点是:")
+    findLinkMid(e)
