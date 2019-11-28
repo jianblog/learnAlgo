@@ -2,13 +2,14 @@
 
 import node
 
-def basicOperation():
-    # 创建一个包含5节点的单向链表
+def newLink(s):
     thisLink = node.LinkNode()
-    for s in "wor":
-        thisLink.addNode(node.Node(s))
-    print(thisLink)
+    for i in str(s):
+        thisLink.addNode(node.Node(i))
+    return thisLink
 
+def basicOperation():
+    thisLink = newLink("world")
     # 追加节点
     # thisLink.addNode(node.Node("A"))
     # print(thisLink)
@@ -79,6 +80,48 @@ def checkLoop(linkNode):
             return
     return 
 
+def mergeLink(la, lb):
+    # 合并链表
+
+    pta = la.head
+    ptb = lb.head
+
+    if not pta:
+        return lb
+    if not ptb:
+        return la
+
+    pNode = None
+    p_tail  = None
+    # 定位起始
+    if pta.value < ptb.value:
+        pNode = la
+        p_tail = pta
+        pta = pta.next
+    else:
+        pNode = lb
+        p_tail = ptb
+        ptb = ptb.next
+
+    while True:
+        if not pta:
+            p_tail.next = ptb
+            break
+        if not ptb:
+            p_tail.next = pta
+            break
+
+        if pta.value < ptb.value:
+            p_tail.next = pta
+            p_tail = pta
+            pta = pta.next
+        else:
+            p_tail.next = ptb
+            p_tail = ptb
+            ptb = ptb.next
+    return pNode
+
+
 if __name__ == "__main__":
     link =  basicOperation()
     #reverseLink(link)
@@ -86,5 +129,13 @@ if __name__ == "__main__":
 
 
     # 回环
-    loopLink = createLoop()
-    checkLoop(loopLink)
+    #loopLink = createLoop()
+    #checkLoop(loopLink)
+
+
+    # 链表合并
+    la = newLink("ehr")
+    lb = newLink("acnq")
+
+    c = mergeLink(la, lb)
+    print(c)
