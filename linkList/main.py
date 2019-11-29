@@ -5,9 +5,13 @@ import node
 def newLink(s):
     # 使用字符串初始化一个链表
     thisLink = node.LinkNode()
-    for i in str(s):
-        thisLink.addNode(node.Node(i))
-    return thisLink
+    if type(s) == type("string"):
+        for i in str(s):
+            thisLink.addNode(node.Node(i))
+        return thisLink
+    if type(s) == type(node.Node("")):
+        thisLink.head = s
+        return thisLink
 
 def basicOperation():
     thisLink = newLink("world")
@@ -46,6 +50,15 @@ def reverseLink(linkNode):
             cur = after
         linkNode.head.next = None
         linkNode.head = prev
+
+def reverseLink2(nd):
+    # 递归方式翻转链表
+    if nd == None or nd.next == None:
+        return nd 
+    head = reverseLink2(nd.next)
+    nd.next.next = nd
+    nd.next = None
+    return head 
 
 def createLoop():
     # 模拟创建一个包含回路的链表
@@ -171,6 +184,11 @@ if __name__ == "__main__":
     link =  basicOperation()
     reverseLink(link)
     print("翻转链表后: %s\n" % link)
+
+    # 链表翻转-递归
+    link = newLink("wo")
+    nd = reverseLink2(link.head)
+    print("链表翻转-递归:\n", newLink(nd))
 
 
     # 回环
