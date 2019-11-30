@@ -53,11 +53,13 @@ def reverseLink(linkNode):
 
 def reverseLink2(nd):
     # 递归方式翻转链表
+    print("nd.value:", nd.value)
     if nd == None or nd.next == None:
         return nd 
     head = reverseLink2(nd.next)
     nd.next.next = nd
-    nd.next = None
+    print("nd.next:", nd.next.value)
+    nd.next = None   # None会被依次移动到原始链表最头
     return head 
 
 def createLoop():
@@ -186,7 +188,7 @@ if __name__ == "__main__":
     print("翻转链表后: %s\n" % link)
 
     # 链表翻转-递归
-    link = newLink("wo")
+    link = newLink("world")
     nd = reverseLink2(link.head)
     print("链表翻转-递归:\n", newLink(nd))
 
