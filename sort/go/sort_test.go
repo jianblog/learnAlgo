@@ -17,6 +17,12 @@ func TestInsertionSort(t *testing.T) {
 	fmt.Printf("%v", ret)
 }
 
+func TestInsertion2Sort(t *testing.T) {
+	var arr = randArray(10)
+	ret := Insertion2Sort(arr, 0, 10)
+	fmt.Printf("%v", ret)
+}
+
 func TestSelectionSort(t *testing.T) {
 	var arr = []int{6, 2}
 	ret := SelectionSort(arr[:], 2)
@@ -27,4 +33,10 @@ func TestMergeSort(t *testing.T) {
 	var arr = []int{11, 8, 3, 9, 7, 1, 2, 5}
 	ret := MergeSort(arr, 0, 7)
 	fmt.Printf("%v", ret)
+}
+
+func TestQuick2Sort(t *testing.T) {
+	var arr = []int{11, 8, 3, 9, 7, 1, 2, 5}
+	Quick2Sort(arr, 0, 7)
+	fmt.Printf("%v", arr)
 }
