@@ -87,17 +87,12 @@ func binaryOtherSearch3(arr []int, v int) int {
 	lo, hi := 0, n-1
 	for lo <= hi {
 		mid := lo + ((hi - lo) >> 1)
-		if arr[mid] == v {
-			for mid >= 1 && arr[mid-1] == v {
-				mid -= 1
+		if arr[mid] >= v {
+			if mid == 0 || arr[mid-1] < v {
+				return mid
+			} else {
+				hi = mid - 1
 			}
-			return mid
-		}
-		if arr[lo] > v {
-			return lo
-		}
-		if arr[mid] > v {
-			hi = mid - 1
 		} else {
 			lo = mid + 1
 		}
@@ -111,19 +106,14 @@ func binaryOtherSearch4(arr []int, v int) int {
 	lo, hi := 0, n-1
 	for lo <= hi {
 		mid := lo + ((hi - lo) >> 1)
-		if arr[mid] == v {
-			for mid <= hi-1 && arr[mid+1] == v {
-				mid += 1
+		if arr[mid] <= v {
+			if mid == n-1 || arr[mid+1] > v {
+				return mid
+			} else {
+				lo = mid + 1
 			}
-			return mid
-		}
-		if arr[hi] < v {
-			return hi
-		}
-		if arr[mid] > v {
-			hi = mid - 1
 		} else {
-			lo = mid + 1
+			hi = mid - 1
 		}
 	}
 	return -1
