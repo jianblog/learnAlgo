@@ -46,20 +46,22 @@ func (this *Heap) Insert(v int) bool {
 	}
 }
 
-func (this *Heap) DeleteTop() bool {
+func (this *Heap) DeleteTop() (bool, int) {
 	// 删除顶部节点, 最末元素置顶，再比较交换
 	if this.count == 0 {
-		return false
+		return false, 0
 	} else {
+		p := this.arr[0]
 		this.arr[0] = this.arr[this.count-1]
 		this.count -= 1
 		HeapifyToTail(this.arr, this.count)
-		return true
+		return true, p
 	}
 }
 func HeapifyToTail(arr []int, count int) {
 	maxpos := 0
 	for i := 0; i < count; {
+		// 需要确定[i]与它的两个左右分支中谁是最大，再决定如何交换
 		if i*2+1 < count && arr[i] < arr[i*2+1] {
 			maxpos = i*2 + 1
 		}
@@ -76,7 +78,7 @@ func HeapifyToTail(arr []int, count int) {
 }
 
 func Heapify(arr []int) {
-	//从底部对每个非叶节点开始进行调整
+	//从底部对每个非叶节点开始进行调整,直至将最大值置于顶
 	// 倒数第一个非叶节点是 (i-1)/2
 	length := len(arr)
 	for i := (length - 2) / 2; i >= 0; i-- {
@@ -95,6 +97,26 @@ func Heapify(arr []int) {
 			} else {
 				break
 			}
+		}
+	}
+}
+
+func splitMiddle(bigheap *Heap, smallheap *Heap, v int) {
+	//动态数据插入大顶堆和小顶堆
+	if bigheap.count == 0 || v <= bigheap.arr[0] {
+		bigheap.Insert(v)
+	} else {
+		smallheap.Insert(v)
+	}
+	if bigheap.count > smallheap.count+1 {
+		isDelete, p := bigheap.DeleteTop()
+		if isDelete {
+			smallheap.Insert(p)
+		}
+	} else if smallheap.count > bigheap.count {
+		isDelete, p := smallheap.DeleteTop()
+		if isDelete {
+			bigheap.Insert(p)
 		}
 	}
 }
